@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💖 Wishlist Của Bé Iu - Bí Kíp Chiều Người Yêu 💖</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Floating Hearts Background -->
+  <div id="hearts-container" class="hearts-container" aria-hidden="true"></div>
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+  <!-- Persuasive Sweet Notification Toast -->
+  <div id="sweet-toast" class="sweet-toast hidden">
+    <span class="toast-icon">💌</span>
+    <span id="sweet-toast-text">Mẹo nhỏ: Con gái nói "em không cần quà đâu" nghĩa là anh hãy chọn 1 món trong danh sách này đó!</span>
+    <button id="close-toast" class="toast-close" title="Đóng">×</button>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-brand">
+      <span class="brand-heart">💝</span>
+      <div>
+        <h1 id="header-title" class="brand-title">Wishlist Của Em Iu</h1>
+        <p id="header-subtitle" class="brand-subtitle">Cẩm nang giúp anh trở thành bạn trai số 1 thế giới ✨</p>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <div id="sync-status-badge" class="sync-badge" title="Trạng thái dữ liệu">
+        <span class="sync-dot"></span>
+        <span id="sync-status-text">Đã lưu</span>
+      </div>
+      <button id="btn-open-wheel" class="btn btn-wheel-nav">
+        <span class="spin-icon">🎡</span> Vòng Quay Bất Ngờ
+      </button>
+      <button id="btn-share-link" class="btn btn-outline-pink" title="Lấy link gửi cho bạn trai">
+        🔗 Gửi cho Anh Iu
+      </button>
+      <button id="btn-toggle-admin" class="btn btn-admin-toggle">
+        🔐 Quản lý (Admin)
+      </button>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Hero Banner Section -->
+    <section class="hero-card">
+      <div class="hero-left">
+        <div class="couple-pill">
+          <span>👩‍❤️‍👨</span>
+          <span id="couple-names">Em Iu &amp; Anh Iu</span>
+          <span class="sparkle-tag">✨ Forever Love</span>
+        </div>
+        <h2 id="hero-heading" class="hero-heading">
+          Gửi người thương của em 💕
+        </h2>
+        <p id="hero-message" class="hero-description">
+          Để anh không bao giờ phải đau đầu suy nghĩ "Sắp tới tặng gì cho em bây giờ?", em đã chuẩn bị sẵn danh sách những món đồ làm em cười tít mắt cả ngày ở đây nè! Chỉ cần anh tặng là em vui gấp ngàn lần rùiii 🥰
+        </p>
+
+        <!-- Upcoming Occasion Reminder + Happiness Meter -->
+        <div class="hero-widgets">
+          <div class="widget-box occasion-countdown">
+            <div class="widget-header">
+              <span class="widget-icon">⏰</span>
+              <span class="widget-label">Dịp đặc biệt sắp tới</span>
+            </div>
+            <div id="upcoming-occasion-name" class="occasion-title">Kỷ niệm &amp; Sinh nhật</div>
+            <div id="upcoming-countdown" class="countdown-badges">
+              <span class="cd-pill">Đừng để sát ngày mới chuẩn bị nha anh iu 😘</span>
+            </div>
+          </div>
+
+          <div class="widget-box happiness-meter-box">
+            <div class="widget-header">
+              <span class="widget-icon">💗</span>
+              <span class="widget-label">Chỉ số Hạnh Phúc của Em</span>
+              <span id="happiness-score" class="happiness-score">100% Siêu Yêu Anh</span>
+            </div>
+            <div class="progress-track">
+              <div id="happiness-fill" class="progress-fill" style="width: 65%;"></div>
+            </div>
+            <p id="happiness-hint" class="happiness-subtext">
+              Mỗi món quà được chốt đơn sẽ cộng thêm +1000 điểm ngọt ngào! 🥰
+            </p>
+          </div>
+        </div>
+
+        <div class="hero-cta-group">
+          <button id="btn-hero-spin" class="btn btn-primary-glow btn-large">
+            🎡 Quay Chọn Quà Bất Ngờ Ngay!
+          </button>
+          <a href="#wishlist-section" class="btn btn-soft-pink btn-large">
+            🎁 Xem Danh Sách Quà (<span id="total-gifts-count">0</span>)
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="love-card-illustration">
+          <div class="floating-badge badge-1">💖 Chiều em số 1</div>
+          <div class="floating-badge badge-2">🎁 Hộp quà tình yêu</div>
+          <div class="floating-badge badge-3">🥺 Mua cho em đi mà~</div>
+          <div class="central-heart-art">
+            <div class="heart-pulse-ring"></div>
+            <div class="heart-pulse-ring delay-1"></div>
+            <div class="gift-avatar" id="hero-avatar-display">👸💖🤴</div>
+            <p class="avatar-caption" id="hero-quote">"Đầu tư vào bạn gái là khoản đầu tư sinh lời hạnh phúc nhất trần đời!"</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN PANEL (Hidden in Boyfriend View) -->
+    <section id="admin-panel" class="admin-panel hidden">
+      <div class="admin-header">
+        <div>
+          <span class="admin-badge">👑 CHẾ ĐỘ ADMIN CỦA EM IU</span>
+          <h3>Quản Lý Danh Sách Quà &amp; Cài Đặt Web</h3>
+          <p>Bạn có thể thêm món mới, sửa hình ảnh, lời nhắn nhõng nhẽo và đồng bộ trực tuyến cho bạn trai.</p>
+        </div>
+        <div class="admin-header-buttons">
+          <button id="btn-add-new-gift" class="btn btn-primary-glow">
+            ➕ Thêm Món Quà Mới
+          </button>
+          <button id="btn-open-settings" class="btn btn-soft-pink">
+            ⚙️ Cài Đặt Cặp Đôi &amp; Đám Mây
+          </button>
+          <button id="btn-exit-admin" class="btn btn-outline-pink">
+            👀 Xem Giao Diện Bạn Trai
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Admin Stats -->
+      <div class="admin-stats-bar">
+        <div class="stat-item">
+          <span class="stat-num" id="stat-total">0</span>
+          <span class="stat-label">Tổng món quà</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" id="stat-urgent">0</span>
+          <span class="stat-label">🔥 Cần gấp lắm rồi</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" id="stat-reserved">0</span>
+          <span class="stat-label">🛒 Anh đã nhắm / Chốt</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" id="stat-gifted">0</span>
+          <span class="stat-label">🎉 Đã được tặng</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER & SEARCH BAR -->
+    <section id="wishlist-section" class="filter-section">
+      <div class="section-title-row">
+        <div>
+          <h2 class="section-title">✨ Danh Sách Quà Em Thích Mê ✨</h2>
+          <p class="section-subtitle">Anh có thể lọc theo dịp lễ, tầm giá hoặc mức độ "khao khát" của em nha!</p>
+        </div>
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" placeholder="Tìm tên món quà, lời nhắn..." />
+        </div>
+      </div>
+
+      <div class="filters-grid">
+        <!-- Filter by Occasion -->
+        <div class="filter-group">
+          <label class="filter-label">🎉 Dịp tặng quà:</label>
+          <div class="pill-group" id="filter-occasion">
+            <button class="filter-pill active" data-value="all">Tất cả dịp</button>
+            <button class="filter-pill" data-value="unconditional">💝 Tặng vô điều kiện</button>
+            <button class="filter-pill" data-value="birthday">🎂 Sinh nhật</button>
+            <button class="filter-pill" data-value="anniversary">💑 Kỷ niệm yêu</button>
+            <button class="filter-pill" data-value="valentine">💘 Valentine</button>
+            <button class="filter-pill" data-value="womensday">🌷 8/3 &amp; 20/10</button>
+            <button class="filter-pill" data-value="christmas">🎄 Giáng sinh / Năm mới</button>
+          </div>
+        </div>
+
+        <!-- Filter by Price & Desire Level & Status -->
+        <div class="filter-dropdowns-row">
+          <div class="select-wrapper">
+            <label for="filter-desire">💗 Mức độ khao khát:</label>
+            <select id="filter-desire">
+              <option value="all">Tất cả mức độ</option>
+              <option value="urgent">🔥 Cần gấp lắm rồi 🥺</option>
+              <option value="high">💖 Mê chữ ê kéo dài</option>
+              <option value="medium">🌸 Thích sương sương</option>
+            </select>
+          </div>
+
+          <div class="select-wrapper">
+            <label for="filter-price">💰 Tầm giá:</label>
+            <select id="filter-price">
+              <option value="all">Mọi tầm giá</option>
+              <option value="under500">🍬 Dưới 500.000đ (Nhỏ xinh)</option>
+              <option value="500to2m">🎀 500k - 2.000.000đ (Vừa vặn)</option>
+              <option value="over2m">💎 Trên 2.000.000đ (Sang xịn mịn)</option>
+            </select>
+          </div>
+
+          <div class="select-wrapper">
+            <label for="filter-status">📦 Trạng thái:</label>
+            <select id="filter-status">
+              <option value="all">Tất cả trạng thái</option>
+              <option value="available">✨ Đang ước ao (Chưa tặng)</option>
+              <option value="reserved">🛒 Anh đã nhắm / Đang đặt</option>
+              <option value="gifted">🎉 Đã tặng thành công</option>
+            </select>
+          </div>
+
+          <div class="select-wrapper">
+            <label for="sort-by">🔃 Sắp xếp:</label>
+            <select id="sort-by">
+              <option value="desire-desc">🔥 Khao khát nhất lên đầu</option>
+              <option value="newest">🆕 Mới thêm gần đây</option>
+              <option value="price-asc">💸 Giá: Thấp đến Cao</option>
+              <option value="price-desc">💎 Giá: Cao đến Thấp</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WISHLIST CARDS GRID -->
+    <section class="wishlist-grid-section">
+      <div id="wishlist-grid" class="wishlist-grid">
+        <!-- Populated dynamically by app.js -->
+      </div>
+
+      <div id="empty-state" class="empty-state hidden">
+        <div class="empty-icon">🥺💝</div>
+        <h3>Chưa tìm thấy món quà nào khớp bộ lọc</h3>
+        <p>Anh thử đổi bộ lọc dịp lễ hoặc tầm giá khác xem sao nhé!</p>
+        <button id="btn-reset-filters" class="btn btn-soft-pink">Xem tất cả món quà</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p>Made with 💖 for <span id="footer-couple">Em Iu &amp; Anh Iu</span> • Chúc hai bạn luôn ngọt ngào như lúc mới yêu ✨</p>
+  </footer>
+
+  <!-- ==========================================
+       MODAL 1: LUCKY SPIN WHEEL (VÒNG QUAY TÌNH YÊU)
+       ========================================== -->
+  <div id="wheel-modal" class="modal-overlay hidden">
+    <div class="modal-content wheel-modal-content">
+      <button id="close-wheel-modal" class="modal-close" title="Đóng">×</button>
+
+      <div class="wheel-modal-header">
+        <span class="modal-pill">🎡 VÒNG QUAY ĐỊNH MỆNH TÌNH YÊU</span>
+        <h2>Để Vũ Trụ Chọn Giúp Anh Món Quà Bất Ngờ!</h2>
+        <p>Chọn dịp tặng và ngân sách bên dưới rồi bấm <strong>QUAY NGAY</strong> nha anh iu 😘</p>
+      </div>
+
+      <!-- Wheel Filters -->
+      <div class="wheel-filters-bar">
+        <div class="wheel-filter-item">
+          <label for="wheel-occasion">🎉 Dịp sắp tới:</label>
+          <select id="wheel-occasion">
+            <option value="all">Tất cả món quà (Chưa tặng)</option>
+            <option value="unconditional">💝 Tặng vô điều kiện</option>
+            <option value="birthday">🎂 Sinh nhật</option>
+            <option value="anniversary">💑 Kỷ niệm yêu</option>
+            <option value="valentine">💘 Valentine</option>
+            <option value="womensday">🌷 8/3 &amp; 20/10</option>
+            <option value="christmas">🎄 Giáng sinh / Năm mới</option>
+          </select>
+        </div>
+
+        <div class="wheel-filter-item">
+          <label for="wheel-budget">💰 Ngân sách của anh:</label>
+          <select id="wheel-budget">
+            <option value="all">Mọi mức giá</option>
+            <option value="under500">🍬 Dưới 500.000đ</option>
+            <option value="500to2m">🎀 500k - 2.000.000đ</option>
+            <option value="over2m">💎 Trên 2.000.000đ</option>
+          </select>
+        </div>
+
+        <div class="wheel-filter-item">
+          <label for="wheel-desire">💗 Ưu tiên:</label>
+          <select id="wheel-desire">
+            <option value="all">Mọi mức độ thích</option>
+            <option value="urgent">🔥 Chỉ món em cần gấp</option>
+            <option value="high">💖 Món em mê chữ ê kéo dài</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="wheel-stage-layout">
+        <!-- Left: Canvas Spin Wheel -->
+        <div class="wheel-wrapper">
+          <div class="wheel-pointer" aria-hidden="true">💘</div>
+          <canvas id="spin-wheel-canvas" width="420" height="420"></canvas>
+          <button id="btn-spin-now" class="wheel-center-btn">
+            <span>QUAY</span>
+            <small>❤️ NGAY ❤️</small>
+          </button>
+        </div>
+
+        <!-- Right: Spin Status / Winner Card -->
+        <div class="wheel-result-panel">
+          <div id="wheel-ready-state" class="wheel-placeholder">
+            <div class="placeholder-heart">🎁✨</div>
+            <h3 id="wheel-pool-count">Đang có 0 món quà trên vòng quay</h3>
+            <p>Mỗi ô trên vòng quay đều là món em cực kỳ thích. Quay trúng ô nào em cũng ôm hôn anh 100 cái hết á! 🥰</p>
+            <button id="btn-trigger-spin" class="btn btn-primary-glow btn-large full-width">
+              🎰 Bắt Đầu Quay Số Tình Yêu!
+            </button>
+          </div>
+
+          <div id="wheel-winner-card" class="wheel-winner-card hidden">
+            <div class="winner-confetti-badge">🎉 VŨ TRỤ ĐÃ CHỌN MÓN NÀY! 🎉</div>
+            <div class="winner-img-wrap">
+              <img id="winner-img" src="" alt="Món quà trúng thưởng" />
+              <span id="winner-desire-badge" class="winner-desire-tag"></span>
+            </div>
+            <h3 id="winner-title" class="winner-title">Tên món quà</h3>
+            <div id="winner-price" class="winner-price">0đ</div>
+            <blockquote id="winner-note" class="winner-sweet-note"></blockquote>
+            <div id="winner-perk" class="winner-perk-box"></div>
+
+            <div class="winner-actions">
+              <a id="winner-buy-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary-glow full-width">
+                🛍️ Chốt Đơn Ngay Cho Bé Iu 💖
+              </a>
+              <div class="winner-secondary-btns">
+                <button id="btn-winner-reserve" class="btn btn-soft-pink">
+                  🤫 Đánh dấu "Anh đã chốt"
+                </button>
+                <button id="btn-spin-again" class="btn btn-outline-pink">
+                  🔄 Quay lại lần nữa
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 2: GIFT DETAIL & PERSUASION MODAL
+       ========================================== -->
+  <div id="detail-modal" class="modal-overlay hidden">
+    <div class="modal-content detail-modal-content">
+      <button id="close-detail-modal" class="modal-close" title="Đóng">×</button>
+      <div id="detail-modal-body">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 3: ADD / EDIT GIFT (ADMIN ONLY)
+       ========================================== -->
+  <div id="gift-form-modal" class="modal-overlay hidden">
+    <div class="modal-content form-modal-content">
+      <button id="close-gift-form" class="modal-close" title="Đóng">×</button>
+      <div class="modal-header-simple">
+        <h2 id="gift-form-title">🎁 Thêm Món Quà Vào Wishlist</h2>
+        <p>Điền thông tin thật sinh động để kích thích anh người yêu chốt đơn liền tay nha!</p>
+      </div>
+
+      <form id="gift-form" class="gift-form">
+        <input type="hidden" id="gift-id" />
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="gift-name">Tên món quà <span class="req">*</span></label>
+            <input type="text" id="gift-name" required placeholder="VD: Son Dior Addict Lip Glow màu 001 Pink" />
+          </div>
+
+          <div class="form-group">
+            <label for="gift-price">Giá tiền dự kiến (VNĐ) <span class="req">*</span></label>
+            <input type="number" id="gift-price" required min="0" step="1000" placeholder="VD: 850000" />
+          </div>
+        </div>
+
+        <!-- Image Upload + URL -->
+        <div class="form-group">
+          <label>Hình ảnh món quà lung linh <span class="req">*</span></label>
+          <div class="image-input-tabs">
+            <label class="upload-file-box" for="gift-image-file">
+              <span>📸 Tải ảnh từ máy tính / điện thoại</span>
+              <input type="file" id="gift-image-file" accept="image/*" />
+            </label>
+            <span class="or-divider">hoặc</span>
+            <input type="url" id="gift-image-url" placeholder="Dán link hình ảnh (https://...)" />
+          </div>
+          <div id="gift-image-preview-wrap" class="image-preview-wrap hidden">
+            <img id="gift-image-preview" src="" alt="Preview" />
+            <button type="button" id="btn-clear-image" class="btn-tiny-remove">Xoá ảnh</button>
+          </div>
+        </div>
+
+        <div class="form-row-3">
+          <div class="form-group">
+            <label for="gift-desire">💗 Mức độ khao khát</label>
+            <select id="gift-desire">
+              <option value="urgent">🔥 Cần gấp lắm rồi 🥺</option>
+              <option value="high" selected>💖 Mê chữ ê kéo dài</option>
+              <option value="medium">🌸 Thích sương sương</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="gift-occasion">🎉 Dịp tặng phù hợp</label>
+            <select id="gift-occasion">
+              <option value="unconditional">💝 Tặng vô điều kiện (Vì yêu em)</option>
+              <option value="birthday">🎂 Sinh nhật</option>
+              <option value="anniversary">💑 Kỷ niệm yêu</option>
+              <option value="valentine">💘 Valentine</option>
+              <option value="womensday">🌷 8/3 &amp; 20/10</option>
+              <option value="christmas">🎄 Giáng sinh / Năm mới</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="gift-status">📦 Trạng thái</label>
+            <select id="gift-status">
+              <option value="available">✨ Đang ước ao (Chưa tặng)</option>
+              <option value="reserved">🛒 Anh đã nhắm / Đang đặt</option>
+              <option value="gifted">🎉 Đã tặng thành công</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="gift-link">🔗 Link mua hàng (Shopee / Lazada / TikTok / Web hãng)</label>
+          <input type="url" id="gift-link" placeholder="https://shopee.vn/..." />
+        </div>
+
+        <div class="form-group">
+          <label for="gift-specs">📝 Phân loại / Size / Màu sắc (Để anh mua không bị nhầm!)</label>
+          <input type="text" id="gift-specs" placeholder="VD: Màu Hồng Pastel, Size S, Bản Hàn Quốc..." />
+        </div>
+
+        <div class="form-group">
+          <label for="gift-note">🥺 Lời nhắn nhủ ngọt ngào / Nhõng nhẽo với anh <span class="req">*</span></label>
+          <textarea id="gift-note" rows="3" required placeholder="VD: Em ngắm thỏi son này mỗi tối trước khi đi ngủ luôn á 🥺 Anh tặng em là em bôi đi hẹn hò với anh liền!"></textarea>
+          <div class="quick-note-chips">
+            <span>Gợi ý nhanh:</span>
+            <button type="button" class="chip-btn" data-note="Em ngắm món này suốt mấy tuần nay rồi á, có nó chắc em vui cả tháng luôn 🥺💕">Ngắm mấy tuần nay 🥺</button>
+            <button type="button" class="chip-btn" data-note="Món này đang hot lắm luôn, bạn bè ai cũng hỏi, anh mua cho em diện đi chơi với anh nha 😘">Món này đang hot ✨</button>
+            <button type="button" class="chip-btn" data-note="Đồ cũ của em sắp hết/hỏng rùi, cứu tinh của em ở đây chứ đâu huhu 💗">Cứu tinh cần gấp 🆘</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="gift-perk">🎁 "Phần thưởng đặc quyền" cho anh khi tặng món này</label>
+          <input type="text" id="gift-perk" placeholder="VD: Tặng kèm 10 cái hôn + 1 thẻ miễn giận dỗi 1 tuần 😘" />
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-gift-form" class="btn btn-outline-pink">Huỷ</button>
+          <button type="submit" class="btn btn-primary-glow">💾 Lưu Món Quà Vào Wishlist</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 4: SETTINGS & CLOUD SYNC & SHARE LINK
+       ========================================== -->
+  <div id="settings-modal" class="modal-overlay hidden">
+    <div class="modal-content form-modal-content">
+      <button id="close-settings-modal" class="modal-close" title="Đóng">×</button>
+      <div class="modal-header-simple">
+        <h2>⚙️ Cài Đặt Cặp Đôi &amp; Chia Sẻ Trực Tuyến</h2>
+        <p>Tuỳ chỉnh tên hai đứa, lời nhắn đầu trang và cách đồng bộ dữ liệu cho bạn trai</p>
+      </div>
+
+      <form id="settings-form" class="gift-form">
+        <div class="settings-section-box">
+          <h4>👩‍❤️‍👨 1. Thông tin Cặp Đôi &amp; Lời Nhắn</h4>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="set-gf-name">Tên của Bạn (Em Iu)</label>
+              <input type="text" id="set-gf-name" placeholder="VD: Minh Thảo / Bé Iu" />
+            </div>
+            <div class="form-group">
+              <label for="set-bf-name">Tên Bạn Trai (Anh Iu)</label>
+              <input type="text" id="set-bf-name" placeholder="VD: Anh Iu / Chồng Tương Lai" />
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="set-occasion-title">Tên dịp đặc biệt sắp tới</label>
+              <input type="text" id="set-occasion-title" placeholder="VD: Sinh nhật Em Iu / Kỷ niệm 2 năm" />
+            </div>
+            <div class="form-group">
+              <label for="set-occasion-date">Ngày diễn ra (Để đếm ngược nhắc khéo anh)</label>
+              <input type="date" id="set-occasion-date" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="set-hero-msg">Lời tâm sự ngọt ngào đầu trang</label>
+            <textarea id="set-hero-msg" rows="2"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="set-admin-pin">🔐 Mã PIN vào chế độ Admin (để bạn trai không tự sửa quà =))))</label>
+            <input type="text" id="set-admin-pin" placeholder="Mặc định: 1402" />
+          </div>
+        </div>
+
+        <div class="settings-section-box cloud-sync-box">
+          <h4>☁️ 2. Đồng Bộ Đám Mây Tự Động (Cloud Sync)</h4>
+          <p class="small-help">
+            Khi bật Đồng bộ Đám mây, mỗi lần bạn thêm/sửa món quà trên máy của bạn, bạn trai mở link trên điện thoại của ảnh sẽ <strong>tự động thấy danh sách mới nhất ngay lập tức</strong>!
+          </p>
+
+          <div class="cloud-action-row">
+            <button type="button" id="btn-create-cloud-room" class="btn btn-primary-glow">
+              ☁️ Tạo Mã Đám Mây Tự Động (1-Click Miễn Phí)
+            </button>
+            <span id="cloud-status-msg" class="cloud-status-msg"></span>
+          </div>
+
+          <div class="form-group" style="margin-top: 12px;">
+            <label for="set-cloud-url">Link Cloud Sync (Tự động điền hoặc dán link Firebase / npoint / JSONStorage):</label>
+            <input type="url" id="set-cloud-url" placeholder="Bấm nút 'Tạo Mã Đám Mây Tự Động' ở trên hoặc dán URL..." />
+          </div>
+        </div>
+
+        <div class="settings-section-box">
+          <h4>🔗 3. Sao Lưu / Chuyển Dữ Liệu Thủ Công</h4>
+          <div class="backup-btns-row">
+            <button type="button" id="btn-export-json" class="btn btn-soft-pink">📥 Tải File Backup (.json)</button>
+            <label class="btn btn-outline-pink" for="import-json-input" style="cursor:pointer; margin:0;">
+              📤 Nhập File Backup (.json)
+              <input type="file" id="import-json-input" accept=".json" style="display:none;" />
+            </label>
+            <button type="button" id="btn-reset-demo" class="btn btn-outline-pink">🔄 Khôi phục quà mẫu</button>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-settings-btn" class="btn btn-outline-pink">Đóng</button>
+          <button type="submit" class="btn btn-primary-glow">💾 Lưu Cài Đặt &amp; Đồng Bộ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 5: SHARE LINK FOR BOYFRIEND MODAL
+       ========================================== -->
+  <div id="share-modal" class="modal-overlay hidden">
+    <div class="modal-content share-modal-content">
+      <button id="close-share-modal" class="modal-close" title="Đóng">×</button>
+      <div class="share-header">
+        <div class="share-icon-big">💌</div>
+        <h2>Gửi Wishlist Này Cho Bạn Trai!</h2>
+        <p>Khi mở link này, bạn trai sẽ vào thẳng <strong>Giao diện Người Yêu</strong> (không hiện các nút sửa/xoá của Admin) cùng hiệu ứng Vòng Quay Bất Ngờ!</p>
+      </div>
+
+      <div class="share-options-container">
+        <div class="share-box-card">
+          <div class="share-box-title">✨ Link Chia Sẻ Dành Cho Anh Iu:</div>
+          <div class="copy-link-row">
+            <input type="text" id="share-url-input" readonly />
+            <button type="button" id="btn-copy-share-url" class="btn btn-primary-glow">📋 Copy Link</button>
+          </div>
+          <p id="share-mode-hint" class="small-help" style="margin-top:8px;"></p>
+        </div>
+
+        <div class="sweet-message-template">
+          <div class="share-box-title">💬 Tin nhắn mẫu gửi kèm cho ảnh (Bấm để copy):</div>
+          <div id="sweet-copy-msg" class="sweet-msg-preview">
+            "Anh iuuu ơi 🥰 Để anh không phải vắt óc suy nghĩ xem dịp tới tặng gì cho em, em đã làm riêng một chiếc web Wishlist siêu đáng yêu cho anh nè! Trong đó có cả Vòng Quay May Mắn để anh quay chọn quà bất ngờ cho em nữa đó 🎡💖 Anh vào xem thử nha: "
+          </div>
+          <button type="button" id="btn-copy-sweet-msg" class="btn btn-soft-pink full-width" style="margin-top:10px;">
+            💌 Copy Cả Tin Nhắn Ngọt Ngào + Link
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 6: PIN LOGIN FOR ADMIN
+       ========================================== -->
+  <div id="pin-modal" class="modal-overlay hidden">
+    <div class="modal-content pin-modal-content">
+      <button id="close-pin-modal" class="modal-close" title="Đóng">×</button>
+      <div class="pin-icon">🔐💖</div>
+      <h3>Khu Vực Bí Mật Của Em Iu (Admin)</h3>
+      <p>Nhập mã PIN để thêm/chỉnh sửa danh sách quà nha!</p>
+      <form id="pin-form">
+        <input type="password" id="pin-input" class="pin-input" placeholder="••••" maxlength="12" autocomplete="off" />
+        <p class="pin-hint">Mặc định lần đầu là: <strong>1402</strong> (Valentine)</p>
+        <p id="pin-error" class="pin-error hidden">Mã PIN chưa đúng rồi bé ơi 🥺</p>
+        <button type="submit" class="btn btn-primary-glow full-width">Mở Khoá Admin ✨</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
