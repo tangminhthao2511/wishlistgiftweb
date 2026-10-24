@@ -37,6 +37,43 @@ body {
   position: relative;
 }
 
+/* Outline SVG Icon System */
+.icon-outline {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.22em;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.icon-outline.icon-xs {
+  width: 15px;
+  height: 15px;
+  vertical-align: -0.16em;
+}
+
+.icon-outline.icon-lg {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-outline.icon-xl {
+  width: 32px;
+  height: 32px;
+}
+
+.icon-outline.icon-hero-art {
+  width: 56px;
+  height: 56px;
+  color: var(--pink-500);
+  stroke-width: 1.6;
+}
+
 /* Floating Hearts Background */
 .hearts-container {
   position: fixed;
@@ -51,6 +88,7 @@ body {
   bottom: -40px;
   user-select: none;
   opacity: 0.45;
+  color: var(--pink-400);
   animation: floatUp linear forwards;
   filter: drop-shadow(0 2px 6px rgba(255, 92, 153, 0.25));
 }
@@ -102,7 +140,9 @@ body {
 }
 
 .toast-icon {
-  font-size: 1.8rem;
+  color: var(--pink-500);
+  display: inline-flex;
+  align-items: center;
   animation: heartBeat 1.6s infinite;
 }
 
@@ -157,7 +197,9 @@ body {
 }
 
 .brand-heart {
-  font-size: 2.2rem;
+  color: var(--pink-500);
+  display: inline-flex;
+  align-items: center;
   animation: heartBeat 2s infinite;
 }
 
@@ -638,6 +680,9 @@ body {
   left: 14px;
   top: 50%;
   transform: translateY(-50%);
+  color: var(--pink-500);
+  display: inline-flex;
+  align-items: center;
 }
 
 .search-box input {
@@ -1176,12 +1221,11 @@ body {
 
 .wheel-pointer {
   position: absolute;
-  top: -22px;
+  top: -18px;
   left: 50%;
-  transform: translateX(-50%) rotate(135deg);
-  font-size: 2.4rem;
+  transform: translateX(-50%);
   z-index: 10;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 4px 6px rgba(224, 19, 99, 0.28));
 }
 
 .wheel-center-btn {

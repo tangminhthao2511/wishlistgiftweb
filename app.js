@@ -1,19 +1,24 @@
 /**
- * 💖 WISHLIST CỦA EM IU - ROMANTIC GIFT WISHLIST & LUCKY WHEEL 💖
+ * WISHLIST CỦA EM IU - ROMANTIC GIFT WISHLIST & LUCKY WHEEL
  */
 
 const STORAGE_KEY = 'mt_love_wishlist_v1';
 const ADMIN_SESSION_KEY = 'mt_love_admin_unlocked';
+
+// Helper to render inline SVG outline icon from sprite in index.html
+function svgIcon(name, extraClass = '') {
+  return `<svg class="icon-outline ${extraClass}" aria-hidden="true"><use href="#icon-${name}"></use></svg>`;
+}
 
 // Default Sample Gifts (Cute, persuasive, ready to inspire or edit)
 const DEFAULT_DATA = {
   settings: {
     gfName: 'Minh Thảo (Bé Iu)',
     bfName: 'Anh Iu',
-    occasionTitle: 'Dịp Đặc Biệt Sắp Tới 💕',
+    occasionTitle: 'Dịp Đặc Biệt Sắp Tới',
     occasionDate: getFutureDateString(14),
     heroMessage:
-      'Để anh không bao giờ phải đau đầu suy nghĩ "Sắp tới tặng gì cho em bây giờ?", em đã chuẩn bị sẵn danh sách những món đồ làm em cười tít mắt cả ngày ở đây nè! Chỉ cần anh tặng là em vui gấp ngàn lần rùiii 🥰',
+      'Để anh không bao giờ phải đau đầu suy nghĩ "Sắp tới tặng gì cho em bây giờ?", em đã chuẩn bị sẵn danh sách những món đồ làm em cười tít mắt cả ngày ở đây nè! Chỉ cần anh tặng là em vui gấp ngàn lần rùiii!',
     adminPin: '1402',
     cloudUrl: ''
   },
@@ -28,8 +33,8 @@ const DEFAULT_DATA = {
       status: 'available',
       link: 'https://shopee.vn/search?keyword=son%20dior%20addict%20lip%20glow',
       specs: 'Màu 001 Pink hoặc 004 Coral',
-      note: 'Thỏi son cũ của em sắp chạm đáy rùiii 🥺 Có thỏi này đánh lên môi hồng hào xinh xắn đi hẹn hò với anh là hết nước chấm luôn!',
-      perk: 'Tặng kèm 20 cái thơm má có dấu son môi 😘💋',
+      note: 'Thỏi son cũ của em sắp chạm đáy rùiii! Có thỏi này đánh lên môi hồng hào xinh xắn đi hẹn hò với anh là hết nước chấm luôn!',
+      perk: 'Tặng kèm 20 cái thơm má có dấu son môi',
       createdAt: Date.now() - 500000
     },
     {
@@ -42,8 +47,8 @@ const DEFAULT_DATA = {
       status: 'available',
       link: 'https://shopee.vn/search?keyword=miss%20dior%20blooming%20bouquet',
       specs: 'Bản 50ml - Mùi hoa mẫu đơn ngọt dịu tiểu thư',
-      note: 'Em mê mùi này chữ ê kéo dài luôn á! Mỗi lần xịt đi cạnh anh là anh chỉ muốn ôm em mãi không rời thôi 🥰',
-      perk: 'Đặc quyền ôm em thơm phức mỗi buổi hẹn hò + Miễn giận dỗi 1 tháng 💖',
+      note: 'Em mê mùi này chữ ê kéo dài luôn á! Mỗi lần xịt đi cạnh anh là anh chỉ muốn ôm em mãi không rời thôi!',
+      perk: 'Đặc quyền ôm em thơm phức mỗi buổi hẹn hò + Miễn giận dỗi 1 tháng',
       createdAt: Date.now() - 400000
     },
     {
@@ -56,8 +61,8 @@ const DEFAULT_DATA = {
       status: 'available',
       link: 'https://shopee.vn/search?keyword=tui%20xach%20nu%20kem%20hong',
       specs: 'Màu Trắng Kem hoặc Hồng Pastel',
-      note: 'Em ngắm chiếc túi này mấy tuần nay rồi đó 🥺 Phối với váy đi ăn tối kỷ niệm với anh là xinh như công chúa luôn!',
-      perk: '1 buổi tối hẹn hò lãng mạn do em lên đồ siêu xinh cho anh ngắm ✨',
+      note: 'Em ngắm chiếc túi này mấy tuần nay rồi đó! Phối với váy đi ăn tối kỷ niệm với anh là xinh như công chúa luôn!',
+      perk: '1 buổi tối hẹn hò lãng mạn do em lên đồ siêu xinh cho anh ngắm',
       createdAt: Date.now() - 300000
     },
     {
@@ -70,8 +75,8 @@ const DEFAULT_DATA = {
       status: 'available',
       link: 'https://shopee.vn/search?keyword=lac%20tay%20bac%20nu',
       specs: 'Cổ tay em 15cm, mẫu mảnh nhẹ nhàng',
-      note: 'Đeo trên tay lúc nào nhìn xuống cũng nhớ tới người tặng hết trơn á 💕',
-      perk: 'Nắm tay anh đi dạo phố cả buổi tối không buông 👩‍❤️‍👨',
+      note: 'Đeo trên tay lúc nào nhìn xuống cũng nhớ tới người tặng hết trơn á!',
+      perk: 'Nắm tay anh đi dạo phố cả buổi tối không buông',
       createdAt: Date.now() - 200000
     },
     {
@@ -84,8 +89,8 @@ const DEFAULT_DATA = {
       status: 'available',
       link: 'https://shopee.vn/search?keyword=bo%20hoa%20hong%20sap%20gau%20bong',
       specs: 'Tone màu hồng pastel giấy gói Hàn Quốc',
-      note: 'Con gái ai cũng thích được nhận hoa bất ngờ hết á, nhất là từ người mình thương nhất trần đời 🥺🌸',
-      perk: '100 tấm ảnh sống ảo khoe người yêu tâm lý nhất vũ trụ 📸💖',
+      note: 'Con gái ai cũng thích được nhận hoa bất ngờ hết á, nhất là từ người mình thương nhất trần đời!',
+      perk: '100 tấm ảnh sống ảo khoe người yêu tâm lý nhất vũ trụ',
       createdAt: Date.now() - 100000
     },
     {
@@ -98,8 +103,8 @@ const DEFAULT_DATA = {
       status: 'available',
       link: 'https://shopee.vn/search?keyword=fujifilm%20instax%20mini%2012%20pink',
       specs: 'Bản màu Blossom Pink (Hồng Phấn)',
-      note: 'Mỗi chuyến đi chơi của tụi mình sẽ in ra ảnh liền tay để dán đầy góc phòng luôn nha anh iu 🥰',
-      perk: 'Tặng anh cuốn album kỷ niệm tình yêu siêu đáng yêu của 2 đứa 📒💕',
+      note: 'Mỗi chuyến đi chơi của tụi mình sẽ in ra ảnh liền tay để dán đầy góc phòng luôn nha anh iu!',
+      perk: 'Tặng anh cuốn album kỷ niệm tình yêu siêu đáng yêu của 2 đứa',
       createdAt: Date.now() - 50000
     }
   ]
@@ -111,34 +116,58 @@ function getFutureDateString(daysAhead) {
   return d.toISOString().split('T')[0];
 }
 
-// Labels mapping
+// Labels mapping with outline icons
 const DESIRE_LABELS = {
-  urgent: { text: '🔥 Cần gấp lắm rồi 🥺', short: '🔥 Cần gấp', weight: 3 },
-  high: { text: '💖 Mê chữ ê kéo dài', short: '💖 Siêu mê', weight: 2 },
-  medium: { text: '🌸 Thích sương sương', short: '🌸 Thích lắm', weight: 1 }
+  urgent: {
+    html: `${svgIcon('flame', 'icon-xs')} Cần gấp lắm rồi`,
+    text: 'Cần gấp lắm rồi',
+    weight: 3
+  },
+  high: {
+    html: `${svgIcon('heart', 'icon-xs')} Mê chữ ê kéo dài`,
+    text: 'Mê chữ ê kéo dài',
+    weight: 2
+  },
+  medium: {
+    html: `${svgIcon('flower', 'icon-xs')} Thích sương sương`,
+    text: 'Thích sương sương',
+    weight: 1
+  }
 };
 
 const OCCASION_LABELS = {
-  unconditional: '💝 Tặng vô điều kiện',
-  birthday: '🎂 Sinh nhật',
-  anniversary: '💑 Kỷ niệm yêu',
-  valentine: '💘 Valentine',
-  womensday: '🌷 8/3 & 20/10',
-  christmas: '🎄 Giáng sinh / Năm mới'
-};
-
-const STATUS_LABELS = {
-  available: '✨ Đang ước ao',
-  reserved: '🛒 Anh đã chốt đơn',
-  gifted: '🎉 Đã tặng bé iu'
+  unconditional: {
+    html: `${svgIcon('gift', 'icon-xs')} Tặng vô điều kiện`,
+    text: 'Tặng vô điều kiện'
+  },
+  birthday: {
+    html: `${svgIcon('cake', 'icon-xs')} Sinh nhật`,
+    text: 'Sinh nhật'
+  },
+  anniversary: {
+    html: `${svgIcon('hearts', 'icon-xs')} Kỷ niệm yêu`,
+    text: 'Kỷ niệm yêu'
+  },
+  valentine: {
+    html: `${svgIcon('heart', 'icon-xs')} Valentine`,
+    text: 'Valentine'
+  },
+  womensday: {
+    html: `${svgIcon('flower', 'icon-xs')} 8/3 & 20/10`,
+    text: '8/3 & 20/10'
+  },
+  christmas: {
+    html: `${svgIcon('sparkles', 'icon-xs')} Giáng sinh / Năm mới`,
+    text: 'Giáng sinh / Năm mới'
+  }
 };
 
 const SWEET_PERSUASION_TIPS = [
-  '💡 Mẹo nhỏ: Con gái nói "em không cần quà đâu" nghĩa là anh hãy chọn 1 món trong danh sách này đó =))))',
-  '🥰 Khoa học chứng minh: Tặng quà trong Wishlist giúp bạn gái vui vẻ, dịu dàng và chiều người yêu gấp 10 lần!',
-  '🎡 Nếu anh phân vân vì món nào cũng xinh, hãy bấm "Vòng Quay Bất Ngờ" để vũ trụ chọn giúp anh nha!',
-  '💖 Đầu tư vào nụ cười của bạn gái là khoản đầu tư sinh lời hạnh phúc nhất thế gian!',
-  '🥺 Những món có gắn nhãn "🔥 Cần gấp lắm rồi" là em ngắm mỗi tối trước khi đi ngủ đó anh iu ơi~'
+  'Mẹo nhỏ: Con gái nói "em không cần quà đâu" nghĩa là anh hãy chọn 1 món trong danh sách này đó =))))',
+  'Khoa học chứng minh: Tặng quà trong Wishlist giúp bạn gái vui vẻ, dịu dàng và chiều người yêu gấp 10 lần!',
+  'Nếu anh phân vân vì món nào cũng xinh, hãy bấm "Vòng Quay Bất Ngờ" để vũ trụ chọn giúp anh nha!',
+  'Đầu tư vào nụ cười của bạn gái là khoản đầu tư sinh lời hạnh phúc nhất thế gian!',
+  'Những món có gắn nhãn "Cần gấp lắm rồi" là em ngắm mỗi tối trước khi đi ngủ đó anh iu ơi~'
 ];
 
 // Application State
@@ -217,7 +246,7 @@ async function checkUrlSyncOrLocalServer() {
           gifts: sharedData.gifts
         };
         localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-        updateSyncBadge('Đã tải từ Link chia sẻ ✨', false);
+        updateSyncBadge('Đã tải từ Link chia sẻ', false);
       }
     } catch (err) {
       console.warn('Hash share decode error:', err);
@@ -242,7 +271,7 @@ async function checkUrlSyncOrLocalServer() {
       if (serverData && Array.isArray(serverData.gifts) && serverData.gifts.length > 0) {
         appData = serverData;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-        updateSyncBadge('Đã đồng bộ Server 💖', false);
+        updateSyncBadge('Đã đồng bộ Server', false);
       }
     }
   } catch (_) {
@@ -250,7 +279,7 @@ async function checkUrlSyncOrLocalServer() {
   }
 }
 
-async function saveData(syncMessage = 'Đã lưu & đồng bộ 💖') {
+async function saveData(syncMessage = 'Đã lưu & đồng bộ') {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
   updateSyncBadge('Đang lưu...', true);
 
@@ -269,7 +298,7 @@ async function saveData(syncMessage = 'Đã lưu & đồng bộ 💖') {
   if (appData.settings.cloudUrl) {
     try {
       await pushToCloud(appData.settings.cloudUrl, appData);
-      updateSyncBadge('Đã đồng bộ Cloud ☁️', false);
+      updateSyncBadge('Đã đồng bộ Cloud', false);
       return;
     } catch (err) {
       console.warn('Cloud push error:', err);
@@ -298,7 +327,7 @@ async function pullFromCloud(url) {
         gifts: remote.gifts
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-      updateSyncBadge('Đã đồng bộ Cloud ☁️', false);
+      updateSyncBadge('Đã đồng bộ Cloud', false);
     }
   } catch (e) {
     console.warn('Could not pull from cloud:', e);
@@ -341,11 +370,12 @@ function renderHeaderAndHero() {
   const { gfName, bfName, occasionTitle, occasionDate, heroMessage } = appData.settings;
 
   document.getElementById('header-title').textContent = `Wishlist Của ${gfName}`;
-  document.getElementById('couple-names').textContent = `${gfName} 💕 ${bfName}`;
+  document.getElementById('couple-names').textContent = `${gfName} & ${bfName}`;
   document.getElementById('footer-couple').textContent = `${gfName} & ${bfName}`;
-  document.getElementById('hero-heading').textContent = `Gửi ${bfName} thương yêu của em 💌`;
+  document.getElementById('hero-heading').innerHTML = `Gửi ${escapeHtml(bfName)} thương yêu của em ${svgIcon('mail')}`;
   document.getElementById('hero-message').textContent = heroMessage;
-  document.getElementById('upcoming-occasion-name').textContent = occasionTitle || 'Dịp Đặc Biệt Sắp Tới';
+  document.getElementById('upcoming-occasion-name').textContent =
+    occasionTitle ? occasionTitle.replace(/[\u{1F300}-\u{1FAFF}]/gu, '').trim() : 'Dịp Đặc Biệt Sắp Tới';
 
   // Countdown calculation
   const countdownEl = document.getElementById('upcoming-countdown');
@@ -359,14 +389,14 @@ function renderHeaderAndHero() {
       year: 'numeric'
     });
     if (diffDays > 0) {
-      countdownEl.innerHTML = `<span class="cd-pill">⏳ Còn <strong>${diffDays} ngày</strong> nữa (${formattedDate}) • Chuẩn bị quà dần là vừa xinh nha anh 😘</span>`;
+      countdownEl.innerHTML = `<span class="cd-pill">${svgIcon('clock', 'icon-xs')} Còn <strong>${diffDays} ngày</strong> nữa (${formattedDate}) • Chuẩn bị quà dần là vừa xinh nha anh</span>`;
     } else if (diffDays === 0) {
-      countdownEl.innerHTML = `<span class="cd-pill">🎉 Hôm nay là ngày đặc biệt rồi (${formattedDate})! Chốt đơn liền tay thôiii 💖</span>`;
+      countdownEl.innerHTML = `<span class="cd-pill">${svgIcon('sparkles', 'icon-xs')} Hôm nay là ngày đặc biệt rồi (${formattedDate})! Chốt đơn liền tay thôiii</span>`;
     } else {
-      countdownEl.innerHTML = `<span class="cd-pill">💝 Ngày bất kỳ bên ${bfName} đều là ngày lễ tình nhân!</span>`;
+      countdownEl.innerHTML = `<span class="cd-pill">${svgIcon('heart', 'icon-xs')} Ngày bất kỳ bên ${escapeHtml(bfName)} đều là ngày lễ tình nhân!</span>`;
     }
   } else {
-    countdownEl.innerHTML = `<span class="cd-pill">💝 Ngày nào yêu nhau cũng là dịp tặng quà bất ngờ!</span>`;
+    countdownEl.innerHTML = `<span class="cd-pill">${svgIcon('heart', 'icon-xs')} Ngày nào yêu nhau cũng là dịp tặng quà bất ngờ!</span>`;
   }
 
   // Happiness Meter
@@ -379,10 +409,10 @@ function renderHeaderAndHero() {
   const percent = Math.min(100, baseHappiness + bonus);
 
   document.getElementById('happiness-fill').style.width = `${percent}%`;
-  document.getElementById('happiness-score').textContent =
+  document.getElementById('happiness-score').innerHTML =
     completedOrReserved > 0
-      ? `${percent}% (+${completedOrReserved * 1000} điểm chiều chuộng 🥰)`
-      : `999% Yêu ${bfName} 💖`;
+      ? `${percent}% (+${completedOrReserved * 1000} điểm chiều chuộng)`
+      : `999% Yêu ${escapeHtml(bfName)}`;
   document.getElementById('total-gifts-count').textContent = appData.gifts.filter(
     (g) => g.status !== 'gifted'
   ).length;
@@ -395,11 +425,11 @@ function renderAdminModeState() {
   if (isAdmin) {
     adminPanel.classList.remove('hidden');
     toggleBtn.classList.add('active-admin');
-    toggleBtn.innerHTML = '👑 Đang ở chế độ Admin';
+    toggleBtn.innerHTML = `${svgIcon('crown')} Đang ở chế độ Admin`;
   } else {
     adminPanel.classList.add('hidden');
     toggleBtn.classList.remove('active-admin');
-    toggleBtn.innerHTML = '🔐 Quản lý (Admin)';
+    toggleBtn.innerHTML = `${svgIcon('lock')} Quản lý (Admin)`;
   }
 
   // Update Admin stats
@@ -483,36 +513,36 @@ function renderWishlistGrid() {
 
 function createGiftCardHTML(gift) {
   const desireInfo = DESIRE_LABELS[gift.desire] || DESIRE_LABELS.high;
-  const occasionText = OCCASION_LABELS[gift.occasion] || OCCASION_LABELS.unconditional;
+  const occasionInfo = OCCASION_LABELS[gift.occasion] || OCCASION_LABELS.unconditional;
   const formattedPrice = formatCurrency(gift.price);
   const safeImg = gift.image || createFallbackSVGDataUrl(gift.name);
 
   let statusRibbonHTML = '';
   if (gift.status === 'reserved') {
-    statusRibbonHTML = `<span class="status-ribbon reserved">🛒 Anh đã chốt đơn!</span>`;
+    statusRibbonHTML = `<span class="status-ribbon reserved">${svgIcon('cart', 'icon-xs')} Anh đã chốt đơn!</span>`;
   } else if (gift.status === 'gifted') {
-    statusRibbonHTML = `<span class="status-ribbon gifted">🎉 Đã tặng thành công 💖</span>`;
+    statusRibbonHTML = `<span class="status-ribbon gifted">${svgIcon('check', 'icon-xs')} Đã tặng thành công</span>`;
   }
 
   const reserveBtnLabel =
     gift.status === 'reserved'
-      ? '✅ Đã đánh dấu chốt'
+      ? `${svgIcon('check', 'icon-xs')} Đã đánh dấu chốt`
       : gift.status === 'gifted'
-      ? '🎉 Đã tặng xong'
-      : '🤫 Đánh dấu "Anh sẽ mua"';
+      ? `${svgIcon('gift', 'icon-xs')} Đã tặng xong`
+      : `${svgIcon('heart', 'icon-xs')} Đánh dấu "Anh sẽ mua"`;
 
   const buyBtnHTML = gift.link
     ? `<a href="${escapeHtml(gift.link)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary-glow full-width">
-         🛍️ Chốt Đơn Cho Bé Iu 💖
+         ${svgIcon('bag')} Chốt Đơn Cho Bé Iu
        </a>`
     : `<button class="btn btn-primary-glow full-width" data-action="detail" data-id="${gift.id}">
-         💝 Xem Chi Tiết &amp; Chốt Đơn
+         ${svgIcon('gift')} Xem Chi Tiết &amp; Chốt Đơn
        </button>`;
 
   const adminControlsHTML = isAdmin
     ? `<div class="admin-card-controls">
-         <button class="btn btn-soft-pink" data-action="edit" data-id="${gift.id}">✏️ Sửa món này</button>
-         <button class="btn btn-outline-pink" data-action="delete" data-id="${gift.id}">🗑️ Xoá</button>
+         <button class="btn btn-soft-pink" data-action="edit" data-id="${gift.id}">${svgIcon('edit', 'icon-xs')} Sửa món này</button>
+         <button class="btn btn-outline-pink" data-action="delete" data-id="${gift.id}">${svgIcon('trash', 'icon-xs')} Xoá</button>
        </div>`
     : '';
 
@@ -521,8 +551,8 @@ function createGiftCardHTML(gift) {
       <div class="card-image-box" data-action="detail" data-id="${gift.id}">
         <img src="${escapeHtml(safeImg)}" alt="${escapeHtml(gift.name)}" loading="lazy" onerror="this.src='${createFallbackSVGDataUrl(gift.name)}'" />
         <div class="card-top-badges">
-          <span class="desire-badge ${gift.desire}">${desireInfo.text}</span>
-          <span class="occasion-badge">${occasionText}</span>
+          <span class="desire-badge ${gift.desire}">${desireInfo.html}</span>
+          <span class="occasion-badge">${occasionInfo.html}</span>
         </div>
         ${statusRibbonHTML}
       </div>
@@ -533,16 +563,16 @@ function createGiftCardHTML(gift) {
           <span class="card-price">${formattedPrice}</span>
         </div>
 
-        ${gift.specs ? `<div class="card-specs">📌 Phân loại: ${escapeHtml(gift.specs)}</div>` : ''}
+        ${gift.specs ? `<div class="card-specs">${svgIcon('tag', 'icon-xs')} Phân loại: ${escapeHtml(gift.specs)}</div>` : ''}
 
         <div class="sweet-note-bubble">
-          “${escapeHtml(gift.note || 'Món này xinh xỉu luôn á anh iu ơi 🥰')}”
+          “${escapeHtml(gift.note || 'Món này xinh xỉu luôn á anh iu ơi!')}”
         </div>
 
         ${
           gift.perk
             ? `<div class="perk-box">
-                 <span>🎁</span>
+                 ${svgIcon('award', 'icon-xs')}
                  <span>Đặc quyền cho anh: ${escapeHtml(gift.perk)}</span>
                </div>`
             : ''
@@ -555,7 +585,7 @@ function createGiftCardHTML(gift) {
               ${reserveBtnLabel}
             </button>
             <button class="btn btn-outline-pink" data-action="toggle-gifted" data-id="${gift.id}" title="Đánh dấu đã tặng">
-              ${gift.status === 'gifted' ? '↩️ Chưa tặng' : '🎁 Đã tặng'}
+              ${gift.status === 'gifted' ? `${svgIcon('refresh', 'icon-xs')} Chưa tặng` : `${svgIcon('gift', 'icon-xs')} Đã tặng`}
             </button>
           </div>
           ${adminControlsHTML}
@@ -576,7 +606,7 @@ function handleCardAction(action, id) {
     if (gift.status === 'reserved') {
       launchConfetti();
       playVictorySound();
-      showSweetToast(`😍 Á à! Anh vừa nhắm món "${gift.name}" cho bé iu! +1000 điểm người yêu quốc dân 💖`);
+      showSweetToast(`Á à! Anh vừa nhắm món "${gift.name}" cho bé iu! +1000 điểm người yêu quốc dân!`);
     }
     saveData();
     renderAll();
@@ -585,7 +615,7 @@ function handleCardAction(action, id) {
     if (gift.status === 'gifted') {
       launchConfetti();
       playVictorySound();
-      showSweetToast(`🎉 Tuyệt vời! Món "${gift.name}" đã được tặng thành công! Yêu anh nhất trần đời 🥰`);
+      showSweetToast(`Tuyệt vời! Món "${gift.name}" đã được tặng thành công! Yêu anh nhất trần đời!`);
     }
     saveData();
     renderAll();
@@ -607,7 +637,7 @@ function openDetailModal(gift) {
   const modal = document.getElementById('detail-modal');
   const body = document.getElementById('detail-modal-body');
   const desireInfo = DESIRE_LABELS[gift.desire] || DESIRE_LABELS.high;
-  const occasionText = OCCASION_LABELS[gift.occasion] || OCCASION_LABELS.unconditional;
+  const occasionInfo = OCCASION_LABELS[gift.occasion] || OCCASION_LABELS.unconditional;
   const safeImg = gift.image || createFallbackSVGDataUrl(gift.name);
 
   body.innerHTML = `
@@ -616,24 +646,24 @@ function openDetailModal(gift) {
         <img class="detail-img" src="${escapeHtml(safeImg)}" alt="${escapeHtml(gift.name)}" onerror="this.src='${createFallbackSVGDataUrl(gift.name)}'" />
       </div>
       <div>
-        <span class="modal-pill">${occasionText} • ${desireInfo.text}</span>
+        <span class="modal-pill">${occasionInfo.html} • ${desireInfo.html}</span>
         <h2 style="color:var(--deep-plum); margin:8px 0;">${escapeHtml(gift.name)}</h2>
         <div style="font-size:1.4rem; font-weight:700; color:var(--pink-600); margin-bottom:12px;">
           ${formatCurrency(gift.price)}
         </div>
         ${
           gift.specs
-            ? `<p style="font-weight:700; color:var(--soft-plum); margin-bottom:12px;">📌 Ghi chú phân loại / màu / size: <span style="color:var(--deep-plum)">${escapeHtml(gift.specs)}</span></p>`
+            ? `<p style="font-weight:700; color:var(--soft-plum); margin-bottom:12px;">${svgIcon('tag', 'icon-xs')} Ghi chú phân loại / màu / size: <span style="color:var(--deep-plum)">${escapeHtml(gift.specs)}</span></p>`
             : ''
         }
         <div class="sweet-note-bubble" style="font-size:0.96rem;">
-          💌 <strong>Lời nhắn của Em Iu:</strong><br/>
+          ${svgIcon('mail', 'icon-xs')} <strong>Lời nhắn của Em Iu:</strong><br/>
           “${escapeHtml(gift.note)}”
         </div>
         ${
           gift.perk
             ? `<div class="perk-box" style="font-size:0.9rem; padding:10px 12px;">
-                 🎁 <strong>Phần thưởng cho Anh Iu:</strong> ${escapeHtml(gift.perk)}
+                 ${svgIcon('award', 'icon-xs')} <strong>Phần thưởng cho Anh Iu:</strong> ${escapeHtml(gift.perk)}
                </div>`
             : ''
         }
@@ -641,12 +671,12 @@ function openDetailModal(gift) {
           ${
             gift.link
               ? `<a href="${escapeHtml(gift.link)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary-glow btn-large full-width">
-                   🛍️ Tới Nơi Mua Hàng Chốt Đơn Ngay 💖
+                   ${svgIcon('bag')} Tới Nơi Mua Hàng Chốt Đơn Ngay
                  </a>`
               : ''
           }
           <button id="detail-reserve-btn" class="btn btn-soft-pink full-width">
-            ${gift.status === 'reserved' ? '✅ Đã đánh dấu "Anh sẽ mua"' : '🤫 Đánh dấu "Anh sẽ mua món này"'}
+            ${gift.status === 'reserved' ? `${svgIcon('check', 'icon-xs')} Đã đánh dấu "Anh sẽ mua"` : `${svgIcon('heart', 'icon-xs')} Đánh dấu "Anh sẽ mua món này"`}
           </button>
         </div>
       </div>
@@ -695,7 +725,7 @@ function updateWheelPoolAndDraw() {
     countEl.textContent =
       wheelPool.length > 0
         ? `Đang có ${wheelPool.length} món quà sẵn sàng trên vòng quay!`
-        : 'Không có món quà nào khớp bộ lọc này 🥺 Hãy nới rộng bộ lọc nha!';
+        : 'Không có món quà nào khớp bộ lọc này! Hãy nới rộng bộ lọc nha!';
   }
 
   drawSpinWheel();
@@ -721,7 +751,7 @@ function drawSpinWheel() {
     ctx.fillStyle = '#e01363';
     ctx.font = 'bold 16px Quicksand, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('Chưa có món quà phù hợp 🥺', cx, cy - 10);
+    ctx.fillText('Chưa có món quà phù hợp', cx, cy - 10);
     ctx.fillText('Anh đổi bộ lọc phía trên nha!', cx, cy + 16);
     return;
   }
@@ -744,7 +774,7 @@ function drawSpinWheel() {
     ctx.strokeStyle = '#ffffff';
     ctx.stroke();
 
-    // Draw gift text inside slice
+    // Draw gift text inside slice (with outline heart symbol ♡)
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(startAngle + arc / 2);
@@ -752,7 +782,7 @@ function drawSpinWheel() {
     ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 13.5px Quicksand, sans-serif';
     const label = truncateText(wheelPool[i].name, 20);
-    ctx.fillText('🎁 ' + label, radius - 18, 5);
+    ctx.fillText('♡ ' + label, radius - 18, 5);
     ctx.restore();
   }
 
@@ -772,7 +802,7 @@ function drawSpinWheel() {
 function startSpinWheel() {
   if (isSpinning) return;
   if (wheelPool.length === 0) {
-    alert('Hiện chưa có món quà nào trong bộ lọc này! Anh hãy chọn "Tất cả món quà" nhé 💖');
+    alert('Hiện chưa có món quà nào trong bộ lọc này! Anh hãy chọn "Tất cả món quà" nhé!');
     return;
   }
 
@@ -839,7 +869,7 @@ function revealWheelWinner(gift) {
   };
 
   const desireInfo = DESIRE_LABELS[gift.desire] || DESIRE_LABELS.high;
-  document.getElementById('winner-desire-badge').textContent = desireInfo.text;
+  document.getElementById('winner-desire-badge').innerHTML = desireInfo.html;
   document.getElementById('winner-title').textContent = gift.name;
   document.getElementById('winner-price').textContent = formatCurrency(gift.price);
   document.getElementById('winner-note').textContent = `“${gift.note}”`;
@@ -847,7 +877,7 @@ function revealWheelWinner(gift) {
   const perkEl = document.getElementById('winner-perk');
   if (gift.perk) {
     perkEl.classList.remove('hidden');
-    perkEl.textContent = `🎁 Đặc quyền cho anh: ${gift.perk}`;
+    perkEl.innerHTML = `${svgIcon('award', 'icon-xs')} Đặc quyền cho anh: ${escapeHtml(gift.perk)}`;
   } else {
     perkEl.classList.add('hidden');
   }
@@ -871,7 +901,7 @@ function openGiftFormModal(gift = null) {
   const previewImg = document.getElementById('gift-image-preview');
 
   if (gift) {
-    title.textContent = '✏️ Chỉnh Sửa Món Quà';
+    title.innerHTML = `${svgIcon('edit')} Chỉnh Sửa Món Quà`;
     document.getElementById('gift-id').value = gift.id;
     document.getElementById('gift-name').value = gift.name || '';
     document.getElementById('gift-price').value = gift.price || 0;
@@ -894,7 +924,7 @@ function openGiftFormModal(gift = null) {
     document.getElementById('gift-note').value = gift.note || '';
     document.getElementById('gift-perk').value = gift.perk || '';
   } else {
-    title.textContent = '🎁 Thêm Món Quà Mới Vào Wishlist';
+    title.innerHTML = `${svgIcon('gift')} Thêm Món Quà Mới Vào Wishlist`;
     document.getElementById('gift-form').reset();
     document.getElementById('gift-id').value = '';
     uploadedImageDataUrl = '';
@@ -954,8 +984,7 @@ function openShareModal() {
     finalShareUrl = `${baseUrl}?view=boyfriend&cloud=${encodeURIComponent(
       appData.settings.cloudUrl
     )}`;
-    hintEl.innerHTML =
-      '✅ <strong>Đang bật Đồng bộ Đám Mây:</strong> Khi bạn thêm/sửa món quà ở máy bạn, bạn trai mở link này sẽ luôn thấy danh sách mới nhất!';
+    hintEl.innerHTML = `${svgIcon('check', 'icon-xs')} <strong>Đang bật Đồng bộ Đám Mây:</strong> Khi bạn thêm/sửa món quà ở máy bạn, bạn trai mở link này sẽ luôn thấy danh sách mới nhất!`;
   } else {
     // Also pack lightweight data into URL hash if possible
     try {
@@ -969,8 +998,7 @@ function openShareModal() {
       };
       const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(compactCopy))));
       finalShareUrl = `${baseUrl}?view=boyfriend#share=${encoded}`;
-      hintEl.innerHTML =
-        '💡 <strong>Mẹo:</strong> Bạn có thể vào mục <em>Cài Đặt & Đám Mây</em> bấm "Tạo Mã Đám Mây 1-Click" để đồng bộ cả ảnh tải lên và cập nhật tự động không cần gửi lại link!';
+      hintEl.innerHTML = `${svgIcon('sparkles', 'icon-xs')} <strong>Mẹo:</strong> Bạn có thể vào mục <em>Cài Đặt & Đám Mây</em> bấm "Tạo Mã Đám Mây 1-Click" để đồng bộ cả ảnh tải lên và cập nhật tự động không cần gửi lại link!`;
     } catch (_) {
       hintEl.textContent = 'Gửi link này cho bạn trai để xem giao diện người yêu nhé!';
     }
@@ -983,7 +1011,7 @@ function openShareModal() {
 async function createFreeCloudRoom() {
   const statusEl = document.getElementById('cloud-status-msg');
   const inputEl = document.getElementById('set-cloud-url');
-  statusEl.textContent = '⏳ Đang khởi tạo đám mây...';
+  statusEl.textContent = 'Đang khởi tạo đám mây...';
 
   try {
     const res = await fetch('https://jsonblob.com/api/jsonBlob', {
@@ -1000,15 +1028,15 @@ async function createFreeCloudRoom() {
       const httpsUrl = locationHeader.replace(/^http:/, 'https:');
       inputEl.value = httpsUrl;
       appData.settings.cloudUrl = httpsUrl;
-      await saveData('Đã kết nối Cloud ☁️');
-      statusEl.textContent = '✅ Đã tạo Mã Đám Mây thành công!';
+      await saveData('Đã kết nối Cloud');
+      statusEl.innerHTML = `${svgIcon('check', 'icon-xs')} Đã tạo Mã Đám Mây thành công!`;
       return;
     }
     throw new Error('No Location header returned');
   } catch (err) {
     console.warn('Cloud auto-create fallback:', err);
     statusEl.textContent =
-      'ℹ️ Trình duyệt chặn tạo tự động hoặc không có mạng. Bạn vẫn dùng được Link Chia Sẻ Nhanh ở nút "Gửi cho Anh Iu" nhé!';
+      'Trình duyệt chặn tạo tự động hoặc không có mạng. Bạn vẫn dùng được Link Chia Sẻ Nhanh ở nút "Gửi cho Anh Iu" nhé!';
   }
 }
 
@@ -1111,7 +1139,7 @@ function bindEvents() {
       isAdmin = false;
       sessionStorage.removeItem(ADMIN_SESSION_KEY);
       renderAll();
-      showSweetToast('👀 Đã chuyển sang chế độ Bạn Trai xem!');
+      showSweetToast('Đã chuyển sang chế độ Bạn Trai xem!');
     } else {
       document.getElementById('pin-input').value = '';
       document.getElementById('pin-error').classList.add('hidden');
@@ -1124,7 +1152,7 @@ function bindEvents() {
     isAdmin = false;
     sessionStorage.removeItem(ADMIN_SESSION_KEY);
     renderAll();
-    showSweetToast('👀 Đang hiển thị giao diện của Bạn Trai!');
+    showSweetToast('Đang hiển thị giao diện của Bạn Trai!');
   });
 
   document.getElementById('close-pin-modal').addEventListener('click', () => {
@@ -1140,7 +1168,7 @@ function bindEvents() {
       sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
       document.getElementById('pin-modal').classList.add('hidden');
       renderAll();
-      showSweetToast('👑 Chào mừng Bé Iu vào trang Quản trị Admin!');
+      showSweetToast('Chào mừng Bé Iu vào trang Quản trị Admin!');
     } else {
       document.getElementById('pin-error').classList.remove('hidden');
     }
@@ -1219,9 +1247,9 @@ function bindEvents() {
     }
 
     document.getElementById('gift-form-modal').classList.add('hidden');
-    await saveData('Đã lưu món quà 💖');
+    await saveData('Đã lưu món quà');
     renderAll();
-    showSweetToast(`✨ Đã lưu món "${name}" vào Wishlist!`);
+    showSweetToast(`Đã lưu món "${name}" vào Wishlist!`);
   });
 
   // Settings Modal
@@ -1259,9 +1287,9 @@ function bindEvents() {
       cloudUrl: document.getElementById('set-cloud-url').value.trim()
     };
     document.getElementById('settings-modal').classList.add('hidden');
-    await saveData('Đã lưu cài đặt 💖');
+    await saveData('Đã lưu cài đặt');
     renderAll();
-    showSweetToast('💖 Đã cập nhật thông tin cặp đôi & đồng bộ!');
+    showSweetToast('Đã cập nhật thông tin cặp đôi & đồng bộ!');
   });
 
   // Export / Import / Reset Backup
@@ -1284,10 +1312,10 @@ function bindEvents() {
         const imported = JSON.parse(ev.target.result);
         if (imported && Array.isArray(imported.gifts)) {
           appData = imported;
-          await saveData('Đã nhập file backup 💖');
+          await saveData('Đã nhập file backup');
           renderAll();
           document.getElementById('settings-modal').classList.add('hidden');
-          showSweetToast('🎉 Đã khôi phục danh sách quà từ file!');
+          showSweetToast('Đã khôi phục danh sách quà từ file!');
         }
       } catch (err) {
         alert('File JSON không hợp lệ!');
@@ -1315,14 +1343,14 @@ function bindEvents() {
     const input = document.getElementById('share-url-input');
     input.select();
     navigator.clipboard.writeText(input.value);
-    showSweetToast('📋 Đã copy link! Gửi cho anh người yêu ngay thôi 💖');
+    showSweetToast('Đã copy link! Gửi cho anh người yêu ngay thôi!');
   });
 
   document.getElementById('btn-copy-sweet-msg').addEventListener('click', () => {
     const url = document.getElementById('share-url-input').value;
-    const msg = `Anh iuuu ơi 🥰 Để anh không phải đau đầu suy nghĩ xem sắp tới tặng gì cho em, em đã làm riêng một chiếc web Wishlist siêu đáng yêu cho anh nè! Trong đó có cả Vòng Quay May Mắn để anh quay chọn quà bất ngờ cho em nữa đó 🎡💖 Anh vào xem thử nha: ${url}`;
+    const msg = `Anh iuuu ơi! Để anh không phải đau đầu suy nghĩ xem sắp tới tặng gì cho em, em đã làm riêng một chiếc web Wishlist siêu đáng yêu cho anh nè! Trong đó có cả Vòng Quay May Mắn để anh quay chọn quà bất ngờ cho em nữa đó. Anh vào xem thử nha: ${url}`;
     navigator.clipboard.writeText(msg);
-    showSweetToast('💌 Đã copy cả lời nhắn ngọt ngào + Link! Paste gửi cho ảnh liền nha 😘');
+    showSweetToast('Đã copy cả lời nhắn ngọt ngào + Link! Paste gửi cho ảnh liền nha!');
   });
 
   // Close modals when clicking backdrop
@@ -1341,19 +1369,20 @@ function bindEvents() {
 }
 
 // ==========================================
-// VISUAL & AUDIO EFFECTS (HEARTS, CONFETTI, SOUND)
+// VISUAL & AUDIO EFFECTS (OUTLINE HEARTS, CONFETTI, SOUND)
 // ==========================================
 function initFloatingHearts() {
   const container = document.getElementById('hearts-container');
-  const symbols = ['💖', '💕', '🌸', '✨', '💝', '🌷', '💗'];
+  const iconNames = ['heart', 'hearts', 'sparkles', 'flower', 'gift'];
 
   function spawnHeart() {
     if (!container) return;
     const el = document.createElement('div');
     el.className = 'floating-heart';
-    el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    const iconName = iconNames[Math.floor(Math.random() * iconNames.length)];
+    const size = Math.round(16 + Math.random() * 16);
+    el.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-${iconName}"></use></svg>`;
     el.style.left = Math.random() * 100 + 'vw';
-    el.style.fontSize = 14 + Math.random() * 18 + 'px';
     const dur = 9 + Math.random() * 9;
     el.style.animationDuration = dur + 's';
     container.appendChild(el);
@@ -1499,8 +1528,13 @@ function createFallbackSVGDataUrl(title) {
       </linearGradient>
     </defs>
     <rect width="600" height="400" fill="url(#g)"/>
-    <text x="300" y="175" font-size="72" text-anchor="middle">🎁💖</text>
-    <text x="300" y="245" font-size="26" font-family="sans-serif" font-weight="bold" fill="#7d1945" text-anchor="middle">${safe}</text>
+    <g transform="translate(264, 110) scale(3)" fill="none" stroke="#7d1945" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="8" width="18" height="4" rx="1"/>
+      <path d="M12 8v13"/>
+      <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/>
+      <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
+    </g>
+    <text x="300" y="255" font-size="26" font-family="sans-serif" font-weight="bold" fill="#7d1945" text-anchor="middle">${safe}</text>
   </svg>`;
   return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
 }
