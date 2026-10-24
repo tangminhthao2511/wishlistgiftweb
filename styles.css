@@ -262,6 +262,7 @@ body {
   font-family: inherit;
   font-weight: 700;
   font-size: 0.92rem;
+  white-space: nowrap;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   border: none;

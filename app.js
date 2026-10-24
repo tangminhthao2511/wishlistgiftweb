@@ -526,10 +526,10 @@ function createGiftCardHTML(gift) {
 
   const reserveBtnLabel =
     gift.status === 'reserved'
-      ? `${svgIcon('check', 'icon-xs')} Đã đánh dấu chốt`
+      ? `${svgIcon('check', 'icon-xs')} Đã chốt`
       : gift.status === 'gifted'
-      ? `${svgIcon('gift', 'icon-xs')} Đã tặng xong`
-      : `${svgIcon('heart', 'icon-xs')} Đánh dấu "Anh sẽ mua"`;
+      ? `${svgIcon('gift', 'icon-xs')} Đã tặng`
+      : `${svgIcon('heart', 'icon-xs')} Sẽ mua`;
 
   const buyBtnHTML = gift.link
     ? `<a href="${escapeHtml(gift.link)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary-glow full-width">
@@ -541,7 +541,7 @@ function createGiftCardHTML(gift) {
 
   const adminControlsHTML = isAdmin
     ? `<div class="admin-card-controls">
-         <button class="btn btn-soft-pink" data-action="edit" data-id="${gift.id}">${svgIcon('edit', 'icon-xs')} Sửa món này</button>
+         <button class="btn btn-soft-pink" data-action="edit" data-id="${gift.id}">${svgIcon('edit', 'icon-xs')} Sửa</button>
          <button class="btn btn-outline-pink" data-action="delete" data-id="${gift.id}">${svgIcon('trash', 'icon-xs')} Xoá</button>
        </div>`
     : '';
@@ -676,7 +676,7 @@ function openDetailModal(gift) {
               : ''
           }
           <button id="detail-reserve-btn" class="btn btn-soft-pink full-width">
-            ${gift.status === 'reserved' ? `${svgIcon('check', 'icon-xs')} Đã đánh dấu "Anh sẽ mua"` : `${svgIcon('heart', 'icon-xs')} Đánh dấu "Anh sẽ mua món này"`}
+            ${gift.status === 'reserved' ? `${svgIcon('check', 'icon-xs')} Đã chốt mua` : `${svgIcon('heart', 'icon-xs')} Sẽ mua món này`}
           </button>
         </div>
       </div>
