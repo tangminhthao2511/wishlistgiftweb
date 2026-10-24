@@ -717,20 +717,29 @@ body {
 
 .select-wrapper select {
   width: 100%;
-  padding: 10px 12px;
+  padding: 10px 38px 10px 14px;
   border-radius: 14px;
   border: 1.5px solid var(--pink-200);
-  background: #fff;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23e01363' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   font-family: inherit;
   font-weight: 600;
   font-size: 0.88rem;
   color: var(--deep-plum);
   outline: none;
   cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .select-wrapper select:focus {
   border-color: var(--pink-500);
+  box-shadow: 0 0 0 3px rgba(255, 46, 126, 0.12);
 }
 
 /* WISHLIST CARDS GRID */
@@ -1123,12 +1132,22 @@ body {
 
 .wheel-filter-item select {
   width: 100%;
-  padding: 8px 10px;
+  padding: 9px 36px 9px 12px;
   border-radius: 10px;
   border: 1.5px solid var(--pink-200);
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23e01363' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   font-family: inherit;
   font-weight: 600;
   color: var(--deep-plum);
+  outline: none;
+  cursor: pointer;
 }
 
 .wheel-stage-layout {
@@ -1367,6 +1386,19 @@ body {
   font-size: 0.92rem;
   color: var(--deep-plum);
   outline: none;
+}
+
+.gift-form select {
+  padding-right: 38px;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23e01363' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
 }
 
 .gift-form input:focus,
